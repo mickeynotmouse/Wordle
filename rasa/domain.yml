@@ -1,0 +1,100 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - thank
+  - affirm
+  - deny
+  - make_guess
+  - add_letter
+  - delete_letter
+  - clear_row
+  - submit_guess
+  - new_game
+  - ask_help
+  - read_board
+  - letter_status
+  - ask_hint
+  - guesses_left
+  - give_up
+  - repeat
+  - speak_slower
+  - speak_faster
+  - stop_talking
+  - out_of_scope
+
+entities:
+  - word
+  - letter
+
+actions:
+  - action_parse_guess
+  - action_parse_letters
+  - action_fallback_guess
+
+# Responses with a "custom" payload are game commands for the browser.
+# Responses with "text" are read aloud to the player.
+responses:
+  utter_greet:
+    - text: "Hello! It's lovely to see you. Say a five-letter word whenever you're ready, or say help to hear the rules."
+    - text: "Hi there! Ready for a word puzzle? Say a five-letter word to begin, or say help."
+
+  utter_goodbye:
+    - text: "Goodbye! Thanks for playing. Come back any time."
+
+  utter_thank:
+    - text: "You're very welcome."
+    - text: "My pleasure!"
+
+  utter_no_word:
+    - text: "Sorry, I didn't catch a five-letter word. You can say the word, like guess crane, or spell it one letter at a time."
+
+  utter_no_letter:
+    - text: "Sorry, which letter was that? You can say, for example, letter B, or B as in boy."
+
+  utter_please_rephrase:
+    - text: "Sorry, I didn't quite understand. You can say a five-letter word, or say help to hear what you can ask me."
+
+  utter_out_of_scope:
+    - text: "I'm afraid I can only help with the word game. Say help to hear what I can do."
+
+  utter_default:
+    - text: "Sorry, I didn't quite understand. Please try again, or say help."
+
+  utter_cmd_affirm:
+    - custom: { command: affirm }
+  utter_cmd_deny:
+    - custom: { command: deny }
+  utter_cmd_delete:
+    - custom: { command: delete }
+  utter_cmd_clear:
+    - custom: { command: clear }
+  utter_cmd_submit:
+    - custom: { command: submit }
+  utter_cmd_new_game:
+    - custom: { command: new_game }
+  utter_cmd_help:
+    - custom: { command: help }
+  utter_cmd_read_board:
+    - custom: { command: read_board }
+  utter_cmd_letter_status:
+    - custom: { command: letter_status }
+  utter_cmd_hint:
+    - custom: { command: hint }
+  utter_cmd_guesses_left:
+    - custom: { command: guesses_left }
+  utter_cmd_give_up:
+    - custom: { command: give_up }
+  utter_cmd_repeat:
+    - custom: { command: repeat }
+  utter_cmd_slower:
+    - custom: { command: slower }
+  utter_cmd_faster:
+    - custom: { command: faster }
+  utter_cmd_stop_talking:
+    - custom: { command: stop_talking }
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

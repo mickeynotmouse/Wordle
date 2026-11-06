@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wordle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="size-large">
+  <header class="topbar">
+    <div class="brand">
+      <div>
+        <h1>Wordle</h1>
+        <p class="tagline">A five-letter word puzzle designed for older adults</p>
+      </div>
+    </div>
+    <div class="topbar-buttons">
+      <button id="btn-help" class="pill" aria-label="How to play">How to play</button>
+      <button id="btn-settings" class="pill" aria-label="Settings">Settings</button>
+      <button id="btn-new" class="pill" aria-label="Start a new game">New game</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="board-area card" aria-label="Game board">
+      <p id="guess-counter" class="guess-counter">Guess 1 of 8</p>
+      <div id="board" class="board" role="grid" aria-label="Letter grid, 8 rows of 5 letters"></div>
+    </section>
+
+    <section class="side-area">
+      <!-- Voice assistant -->
+      <div class="assistant card">
+        <h2 class="card-title">Your helper</h2>
+        <div class="assistant-head">
+          <button id="btn-mic" class="mic" aria-pressed="false">
+            <span id="mic-label">Tap to speak</span>
+          </button>
+          <div class="action-pair">
+            <button id="btn-hint" class="hint-btn" aria-label="Get a hint">
+              Hint
+            </button>
+            <button id="btn-check" class="check-btn">Check word</button>
+          </div>
+        </div>
+        <div class="assistant-status">
+          <span id="ai-status" class="status-dot offline">Checking assistant…</span>
+          <button id="btn-repeat" class="link-btn">Say that again</button>
+        </div>
+        <p id="heard" class="heard" aria-live="polite"></p>
+        <p id="message" class="message" role="status" aria-live="assertive">Welcome! Type a five-letter word, or tap the microphone and say a word.</p>
+      </div>
+
+      <!-- Colour legend (always visible) -->
+      <div class="legend card" aria-label="Colour guide">
+        <h2 class="card-title">What the colours mean</h2>
+        <div class="legend-item"><span class="mini tile correct">A<i class="mark">✓</i></span> Right letter, right spot</div>
+        <div class="legend-item"><span class="mini tile present">B<i class="mark">↔</i></span> In the word, wrong spot</div>
+        <div class="legend-item"><span class="mini tile absent">C<i class="mark">✕</i></span> Not in the word</div>
+      </div>
+
+      <!-- On-screen keyboard -->
+      <div id="keyboard" class="keyboard" aria-label="On-screen keyboard"></div>
+    </section>
+  </main>
+
+  <!-- How to play dialog -->
+  <dialog id="dlg-help" class="dialog">
+    <h2>How to play</h2>
+    <ol class="big-list">
+      <li>Guess the hidden <strong>five-letter word</strong>. You have <strong>8 tries</strong>.</li>
+      <li>Type with your keyboard or tap the letters on screen, then press <strong>Check word</strong> (or the Enter key).</li>
+      <li>Stuck? Press <strong>Hint</strong> and I'll tell you a letter from the word.</li>
+      <li>After each guess, the tiles change colour:
+        <ul>
+          <li><span class="mini tile correct">A<i class="mark">✓</i></span> <span><strong>Green with a tick</strong> – right letter, right spot.</span></li>
+          <li><span class="mini tile present">B<i class="mark">↔</i></span> <span><strong>Gold with arrows</strong> – the letter is in the word, but somewhere else.</span></li>
+          <li><span class="mini tile absent">C<i class="mark">✕</i></span> <span><strong>Grey with a cross</strong> – the letter is not in the word.</span></li>
+        </ul>
+      </li>
+    </ol>
+    <h3>Playing with your voice</h3>
+    <p>Tap <strong>Tap to speak</strong> (or press the space bar), then say things like:</p>
+    <ul class="examples">
+      <li>“Guess <em>crane</em>” or spell it: “C, R, A, N, E”</li>
+      <li>“Letter A” · “Delete” · “Clear the row” · “Enter”</li>
+      <li>“Read my guesses” · “Which letters have I used?”</li>
+      <li>“Give me a hint” · “How many guesses left?”</li>
+      <li>“Help” · “Say that again” · “Speak slower”</li>
+      <li>“New game”</li>
+    </ul>
+    <div class="dialog-buttons">
+      <button id="btn-read-help" class="pill">Read this aloud</button>
+      <button class="pill primary" data-close>Got it</button>
+    </div>
+  </dialog>
+
+  <!-- Settings dialog -->
+  <dialog id="dlg-settings" class="dialog">
+    <h2>Settings</h2>
+    <label class="setting">
+      <span>Text size</span>
+      <select id="set-size">
+        <option value="size-normal">Large</option>
+        <option value="size-large" selected>Extra large</option>
+        <option value="size-huge">Huge</option>
+      </select>
+    </label>
+    <label class="setting">
+      <span>Colours</span>
+      <select id="set-palette">
+        <option value="palette-standard" selected>Green and gold</option>
+        <option value="palette-cb">Colour-blind friendly (blue and orange)</option>
+      </select>
+    </label>
+    <label class="setting">
+      <span>Read aloud</span>
+      <input type="checkbox" id="set-speak" checked>
+    </label>
+    <label class="setting">
+      <span>Speaking speed</span>
+      <select id="set-rate">
+        <option value="0.7">Slow</option>
+        <option value="0.85" selected>Relaxed</option>
+        <option value="1">Normal</option>
+      </select>
+    </label>
+    <label class="setting">
+      <span>Ask me to confirm spoken guesses</span>
+      <input type="checkbox" id="set-confirm" checked>
+    </label>
+    <label class="setting">
+      <span>Only accept real words</span>
+      <input type="checkbox" id="set-dict" checked>
+    </label>
+    <label class="setting">
+      <span>Assistant address</span>
+      <input type="text" id="set-rasa" value="http://localhost:5005">
+    </label>
+    <div class="dialog-buttons">
+      <button class="pill primary" data-close>Done</button>
+    </div>
+  </dialog>
+
+  <!-- Game over dialog -->
+  <dialog id="dlg-end" class="dialog">
+    <h2 id="end-title">Well done!</h2>
+    <p id="end-text" class="end-text"></p>
+    <div class="dialog-buttons">
+      <button id="btn-play-again" class="pill primary">Play again</button>
+      <button class="pill" data-close>Close</button>
+    </div>
+  </dialog>
+
+  <script src="words.js"></script>
+  <script src="speech.js"></script>
+  <script src="assistant.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

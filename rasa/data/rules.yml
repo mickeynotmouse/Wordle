@@ -1,0 +1,117 @@
+version: "3.1"
+
+rules:
+  - rule: Guess a word
+    steps:
+      - intent: make_guess
+      - action: action_parse_guess
+
+  - rule: Add letters
+    steps:
+      - intent: add_letter
+      - action: action_parse_letters
+
+  - rule: Yes
+    steps:
+      - intent: affirm
+      - action: utter_cmd_affirm
+
+  - rule: No
+    steps:
+      - intent: deny
+      - action: utter_cmd_deny
+
+  - rule: Delete
+    steps:
+      - intent: delete_letter
+      - action: utter_cmd_delete
+
+  - rule: Clear row
+    steps:
+      - intent: clear_row
+      - action: utter_cmd_clear
+
+  - rule: Submit
+    steps:
+      - intent: submit_guess
+      - action: utter_cmd_submit
+
+  - rule: New game
+    steps:
+      - intent: new_game
+      - action: utter_cmd_new_game
+
+  - rule: Help
+    steps:
+      - intent: ask_help
+      - action: utter_cmd_help
+
+  - rule: Read board
+    steps:
+      - intent: read_board
+      - action: utter_cmd_read_board
+
+  - rule: Letter status
+    steps:
+      - intent: letter_status
+      - action: utter_cmd_letter_status
+
+  - rule: Hint
+    steps:
+      - intent: ask_hint
+      - action: utter_cmd_hint
+
+  - rule: Guesses left
+    steps:
+      - intent: guesses_left
+      - action: utter_cmd_guesses_left
+
+  - rule: Give up
+    steps:
+      - intent: give_up
+      - action: utter_cmd_give_up
+
+  - rule: Repeat
+    steps:
+      - intent: repeat
+      - action: utter_cmd_repeat
+
+  - rule: Slower
+    steps:
+      - intent: speak_slower
+      - action: utter_cmd_slower
+
+  - rule: Faster
+    steps:
+      - intent: speak_faster
+      - action: utter_cmd_faster
+
+  - rule: Stop talking
+    steps:
+      - intent: stop_talking
+      - action: utter_cmd_stop_talking
+
+  - rule: Greet
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - rule: Goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: Thanks
+    steps:
+      - intent: thank
+      - action: utter_thank
+
+  - rule: Out of scope
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+
+  - rule: Low confidence
+    steps:
+      - intent: nlu_fallback
+      - action: action_fallback_guess

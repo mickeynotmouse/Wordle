@@ -1,0 +1,410 @@
+version: "3.1"
+
+nlu:
+  - intent: make_guess
+    examples: |
+      - [crane](word)
+      - [toast](word)
+      - [house](word)
+      - [apple](word)
+      - [stone](word)
+      - [light](word)
+      - [ocean](word)
+      - [piano](word)
+      - [tiger](word)
+      - [sugar](word)
+      - guess [crane](word)
+      - guess [heart](word)
+      - guess [plant](word)
+      - guess the word [bread](word)
+      - try [smile](word)
+      - try [house](word)
+      - let's try [river](word)
+      - lets try [beach](word)
+      - let me try [lemon](word)
+      - I'll try [cloud](word)
+      - I'll guess [horse](word)
+      - I guess [money](word)
+      - my guess is [table](word)
+      - my guess is [grape](word)
+      - my word is [chair](word)
+      - the word is [mouse](word)
+      - is it [peach](word)
+      - is it [train](word)
+      - is the word [storm](word)
+      - how about [flame](word)
+      - what about [dream](word)
+      - maybe [sheep](word)
+      - I think it's [quilt](word)
+      - I think it is [radio](word)
+      - I want to guess [tulip](word)
+      - I want to try [whale](word)
+      - I'd like to guess [honey](word)
+      - let's go with [pearl](word)
+      - go with [frost](word)
+      - put in [spoon](word)
+      - enter [brick](word)
+      - type [clock](word)
+      - type the word [knife](word)
+      - please enter [grass](word)
+      - guess [quiet](word)
+      - guess [clear](word)
+      - try [enter](word)
+      - try the word [right](word)
+      - c r a n e
+      - C R A N E
+      - h o u s e
+      - s p i c e
+      - t o a s t
+      - guess c r a n e
+      - guess s t o n e
+      - spell b r e a d
+      - it's spelled p l a n t
+      - the word is spelled l e m o n
+      - see are a en e
+      - tea oh a ess tea
+      - b r e a d
+      - charlie romeo alpha november echo
+      - sierra tango oscar november echo
+      - c as in cat r a n e
+      - double u h a l e
+      - g r a p e please
+      - my guess is s m i l e
+
+  - intent: add_letter
+    examples: |
+      - letter [a](letter)
+      - letter [b](letter)
+      - letter [s](letter)
+      - the letter [t](letter)
+      - add [r](letter)
+      - add the letter [e](letter)
+      - add letter [m](letter)
+      - type [n](letter)
+      - type the letter [o](letter)
+      - type letter [p](letter)
+      - put [c](letter)
+      - put in the letter [d](letter)
+      - press [k](letter)
+      - add [charlie](letter)
+      - letter [bravo](letter)
+      - letter [b](letter) as in boy
+      - add [s](letter) as in sam
+      - letters [a](letter) and [n](letter)
+      - add [s](letter) and [t](letter)
+      - type [c](letter) [r](letter)
+      - letter see
+      - letter bee
+      - letter why
+      - letter you
+      - add the letter tea
+
+  - intent: delete_letter
+    examples: |
+      - delete
+      - delete that
+      - delete the last letter
+      - delete a letter
+      - delete one letter
+      - backspace
+      - back space
+      - remove the last letter
+      - remove that letter
+      - take that back
+      - undo
+      - undo that
+      - go back one
+      - erase the last letter
+      - that's the wrong letter
+      - oops delete
+
+  - intent: clear_row
+    examples: |
+      - clear
+      - clear it
+      - clear the row
+      - clear the line
+      - clear everything
+      - clear all the letters
+      - erase the row
+      - erase everything
+      - wipe it
+      - start this row again
+      - start the word again
+      - remove all the letters
+      - delete everything
+      - delete the whole word
+      - get rid of all of it
+
+  - intent: submit_guess
+    examples: |
+      - enter
+      - submit
+      - submit it
+      - submit my guess
+      - check it
+      - check my guess
+      - check the word
+      - press enter
+      - hit enter
+      - send it
+      - done
+      - I'm done
+      - that's my guess
+      - that's my answer
+      - go ahead and check
+      - lock it in
+      - final answer
+
+  - intent: affirm
+    examples: |
+      - yes
+      - yeah
+      - yep
+      - yup
+      - yes please
+      - correct
+      - that's right
+      - that's correct
+      - right
+      - sure
+      - ok
+      - okay
+      - absolutely
+      - of course
+      - go ahead
+      - do it
+      - yes check it
+      - yes that's it
+      - that's it
+
+  - intent: deny
+    examples: |
+      - no
+      - nope
+      - nah
+      - no thanks
+      - no that's wrong
+      - that's wrong
+      - that's not right
+      - not that
+      - wrong
+      - wrong word
+      - no I said something else
+      - cancel
+      - don't
+      - no don't
+
+  - intent: new_game
+    examples: |
+      - new game
+      - start a new game
+      - start new game
+      - play again
+      - let's play again
+      - another game
+      - another word
+      - new word
+      - next word
+      - next puzzle
+      - start over
+      - start again
+      - begin again
+      - give me a new word
+      - I want a new game
+      - restart
+      - restart the game
+      - reset the game
+
+  - intent: ask_help
+    examples: |
+      - help
+      - help me
+      - how do I play
+      - how do you play
+      - how does this work
+      - what are the rules
+      - tell me the rules
+      - explain the game
+      - read the instructions
+      - instructions
+      - what do I do
+      - what can I say
+      - what can you do
+      - what do the colours mean
+      - what does green mean
+      - what does yellow mean
+      - what does gold mean
+      - what does grey mean
+      - I don't understand
+      - I'm confused
+
+  - intent: read_board
+    examples: |
+      - read my guesses
+      - read the board
+      - read back my guesses
+      - read it to me
+      - read the screen
+      - what have I guessed
+      - what have I tried
+      - what did I guess
+      - tell me my guesses
+      - tell me what I've guessed so far
+      - go over my guesses
+      - review my guesses
+      - what are my guesses so far
+      - what did I get
+      - what were my words
+      - how am I doing
+      - what's on the board
+
+  - intent: letter_status
+    examples: |
+      - which letters have I used
+      - what letters have I used
+      - which letters are left
+      - what letters are left
+      - what letters haven't I tried
+      - which letters are in the word
+      - what letters are correct
+      - which letters are wrong
+      - which letters are not in the word
+      - letters left
+      - letters used
+      - read the keyboard
+      - what's on the keyboard
+      - remind me of the letters
+
+  - intent: ask_hint
+    examples: |
+      - hint
+      - give me a hint
+      - can I have a hint
+      - I need a hint
+      - a hint please
+      - clue
+      - give me a clue
+      - can you give me a clue
+      - help me out
+      - I'm stuck
+      - I'm really stuck
+      - tell me a letter
+
+  - intent: guesses_left
+    examples: |
+      - how many guesses do I have left
+      - how many guesses left
+      - how many tries left
+      - how many tries do I have
+      - how many turns do I have left
+      - how many more guesses
+      - how many guesses have I used
+      - which guess am I on
+      - what guess is this
+      - guesses left
+
+  - intent: give_up
+    examples: |
+      - I give up
+      - give up
+      - I surrender
+      - show me the answer
+      - tell me the answer
+      - what's the answer
+      - what is the word
+      - reveal the word
+      - I can't get it
+      - just tell me
+
+  - intent: repeat
+    examples: |
+      - repeat
+      - repeat that
+      - say that again
+      - say it again
+      - can you repeat that
+      - pardon
+      - pardon me
+      - sorry what
+      - what did you say
+      - come again
+      - I didn't hear you
+      - once more
+      - again please
+
+  - intent: speak_slower
+    examples: |
+      - slower
+      - speak slower
+      - talk slower
+      - slow down
+      - you're talking too fast
+      - too fast
+      - please speak more slowly
+      - can you slow down
+
+  - intent: speak_faster
+    examples: |
+      - faster
+      - speak faster
+      - talk faster
+      - speed up
+      - you're too slow
+      - too slow
+      - hurry up a bit
+
+  - intent: stop_talking
+    examples: |
+      - stop
+      - stop talking
+      - be quiet
+      - quiet please
+      - hush
+      - shush
+      - that's enough
+      - silence
+      - stop reading
+
+  - intent: greet
+    examples: |
+      - hi
+      - hello
+      - hey
+      - hello there
+      - good morning
+      - good afternoon
+      - good evening
+      - hi there
+      - howdy
+
+  - intent: goodbye
+    examples: |
+      - bye
+      - goodbye
+      - see you later
+      - good night
+      - I'm finished for today
+      - that's all for today
+      - I'm going now
+
+  - intent: thank
+    examples: |
+      - thanks
+      - thank you
+      - thank you very much
+      - thanks a lot
+      - cheers
+      - much appreciated
+
+  - intent: out_of_scope
+    examples: |
+      - what's the weather
+      - what time is it
+      - tell me a joke
+      - who are you
+      - what's the news today
+      - call my daughter
+      - play some music
+      - set a timer
+      - what day is it
