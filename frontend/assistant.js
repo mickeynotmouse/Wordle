@@ -4,7 +4,7 @@
 // voice play still works.
 
 const Assistant = (() => {
-  let baseUrl = "http://localhost:5005";
+  let baseUrl = "http://localhost:5005"; // replaced by settings.rasa on load
   let online = false;
   const senderId = "player-" + Math.random().toString(36).slice(2, 10);
 

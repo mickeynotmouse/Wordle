@@ -38,6 +38,12 @@ const state = {
   busy: false,      // true while tiles are flipping
 };
 
+// Where the Rasa assistant lives. Running locally with start.sh (port 8000) it's
+// on localhost:5005; online, it's the Cloud Run address set in config.js.
+const LOCAL_RASA = "http://localhost:5005";
+const IS_LOCAL = location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname);
+const DEFAULT_RASA = IS_LOCAL || !window.RASA_URL ? LOCAL_RASA : window.RASA_URL;
+
 const settings = {
   size: "size-large",
   palette: "palette-standard",
@@ -45,7 +51,7 @@ const settings = {
   rate: 0.85,
   confirm: true,
   dict: true,
-  rasa: "http://localhost:5005",
+  rasa: DEFAULT_RASA,
 };
 
 function load(key, fallback) {
@@ -472,7 +478,8 @@ function voiceProblem() {
       "then open the address localhost colon 8000 in your browser.";
   }
   if (!window.isSecureContext) {
-    return "Voice input only works on a secure address. Please open the game at localhost colon 8000 instead.";
+    return "Voice input only works on a secure address. Please open the game's address starting with h t t p s, " +
+      "or localhost colon 8000 if you are running it on your own computer.";
   }
   if (isSafari) {
     return "Safari's speech recognition is switched off. In Safari, open Settings, then Advanced, and tick " +
@@ -486,7 +493,7 @@ const isSafari = /^((?!chrome|android|crios|fxios|edg).)*safari/i.test(navigator
 
 const MIC_ERRORS = {
   "not-allowed": isSafari
-    ? "Safari isn't allowing the microphone. In the Safari menu, choose Settings, then Websites, then Microphone, and set localhost to Allow. Then reload the page."
+    ? "Safari isn't allowing the microphone. In the Safari menu, choose Settings, then Websites, then Microphone, and set this website to Allow. Then reload the page."
     : "I need permission to use the microphone. Click the microphone icon in the address bar, choose Allow, then try again.",
   "service-not-allowed": isSafari
     ? "Safari's speech recognition is turned off. Open System Settings, then Keyboard, and turn on Dictation. Then reload the page."
@@ -654,6 +661,8 @@ async function refreshAssistantStatus() {
 // ---------------------------------------------------------------------------
 function init() {
   Object.assign(settings, load("settings", {}));
+  // Online, a saved localhost address is never right (e.g. saved before config.js was filled in).
+  if (!IS_LOCAL && (!settings.rasa || settings.rasa === LOCAL_RASA)) settings.rasa = DEFAULT_RASA;
   if (!Speech.canListen) {
     // Keep the button clickable so a tap explains what to fix.
     micBtn.classList.add("unavailable");

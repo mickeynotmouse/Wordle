@@ -33,8 +33,7 @@ actions:
   - action_parse_letters
   - action_fallback_guess
 
-# Responses with a "custom" payload are game commands for the browser.
-# Responses with "text" are read aloud to the player.
+
 responses:
   utter_greet:
     - text: "Hello! It's lovely to see you. Say a five-letter word whenever you're ready, or say help to hear the rules."

@@ -1,0 +1,11 @@
+# Files NOT uploaded to Google Cloud Build. Only rasa/, deploy/ and the Dockerfile are needed.
+.git/
+.gitignore
+.venv/
+frontend/
+tools/
+rasa/models/
+rasa/.rasa/
+*.log
+__pycache__/
+README.md
