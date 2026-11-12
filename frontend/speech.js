@@ -27,6 +27,23 @@ const Speech = (() => {
     speechSynthesis.onvoiceschanged = pickVoice;
   }
 
+  // Phones (iPhone and Android) only allow speech that starts directly from a tap.
+  // Replies after voice input arrive later (after listening and asking Rasa), so
+  // they would stay silent. Speaking a silent utterance on the first tap or key
+  // press unlocks speech for the rest of the visit.
+  let unlocked = false;
+  function unlock() {
+    if (unlocked || !hasTTS) return;
+    unlocked = true;
+    const u = new SpeechSynthesisUtterance(".");
+    u.volume = 0;
+    speechSynthesis.speak(u);
+    ["click", "touchend", "keydown"].forEach(ev => window.removeEventListener(ev, unlock, true));
+  }
+  if (hasTTS) {
+    ["click", "touchend", "keydown"].forEach(ev => window.addEventListener(ev, unlock, true));
+  }
+
   // Chrome stops long utterances after ~15 s, so speak sentence by sentence.
   function chunks(text) {
     return text.match(/[^.!?]+[.!?]*/g)?.map(s => s.trim()).filter(Boolean) || [text];
