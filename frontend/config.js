@@ -2,4 +2,4 @@
 // Paste the Cloud Run service URL here after deploying, with no trailing slash,
 // e.g. "https://wordle-rasa-abc123-uc.a.run.app".
 // When the game runs locally with start.sh, localhost:5005 is used instead.
-window.RASA_URL = "";
+window.RASA_URL = "https://wordle-rasa-298894546810.us-central1.run.app";
