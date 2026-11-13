@@ -450,6 +450,55 @@ document.addEventListener("keydown", e => {
   }
 });
 
+// Phone/tablet keyboard: tapping the board focuses a hidden text field so the
+// device's own keyboard appears. Mobile keyboards often don't send usable key
+// events, so we read what changed in the field instead. The field always starts
+// with one space, so Backspace on an "empty" field still shows up as a change.
+const phoneInput = $("#phone-input");
+const SENTINEL = " ";
+let phoneTyped = "";   // letters typed into the field since it was last reset
+
+function resetPhoneInput() {
+  phoneInput.value = SENTINEL;
+  phoneTyped = "";
+}
+
+phoneInput.addEventListener("input", e => {
+  const v = phoneInput.value;
+  if (!v.startsWith(SENTINEL)) {          // Backspace removed the sentinel
+    deleteLetter();
+    resetPhoneInput();
+    return;
+  }
+  const letters = v.slice(SENTINEL.length).toUpperCase().replace(/[^A-Z]/g, "");
+  let same = 0;
+  while (same < letters.length && same < phoneTyped.length && letters[same] === phoneTyped[same]) same++;
+  for (let i = same; i < phoneTyped.length; i++) deleteLetter();
+  for (const ch of letters.slice(same)) typeLetter(ch);
+  phoneTyped = letters;
+  // Keyboards with word suggestions "compose" a word; don't reset mid-word.
+  if (!e.isComposing) resetPhoneInput();
+});
+phoneInput.addEventListener("compositionend", () => setTimeout(resetPhoneInput, 0));
+phoneInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    resetPhoneInput();
+    submitGuess();
+  }
+});
+phoneInput.addEventListener("focus", () => $(".board-area").classList.add("typing"));
+phoneInput.addEventListener("blur", () => $(".board-area").classList.remove("typing"));
+
+// Only on touch screens; on a computer the physical keyboard already works
+// (and focusing the field would stop the space bar from starting the microphone).
+const touchScreen = window.matchMedia("(hover: none) and (pointer: coarse)");
+boardEl.addEventListener("click", () => {
+  if (state.over || !touchScreen.matches) return;
+  resetPhoneInput();
+  phoneInput.focus({ preventScroll: true });
+});
+
 // Voice: microphone to Rasa (or built-in parser) to game command to spoken reply
 
 const micBtn = $("#btn-mic");

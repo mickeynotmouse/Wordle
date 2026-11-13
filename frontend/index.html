@@ -28,6 +28,11 @@
     <section class="board-area card" aria-label="Game board">
       <p id="guess-counter" class="guess-counter">Guess 1 of 8</p>
       <div id="board" class="board" role="grid" aria-label="Letter grid, 8 rows of 5 letters"></div>
+      <!-- Hidden field: tapping the board focuses it so a phone or tablet shows its own keyboard. -->
+      <input id="phone-input" class="phone-input" type="text" aria-label="Type your guess"
+             autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"
+             enterkeyhint="go" tabindex="-1">
+      <p class="tap-tip">Tap the letter boxes to use your own keyboard.</p>
     </section>
 
     <section class="side-area">
@@ -71,7 +76,7 @@
     <h2>How to play</h2>
     <ol class="big-list">
       <li>Guess the hidden <strong>five-letter word</strong>. You have <strong>8 tries</strong>.</li>
-      <li>Type with your keyboard or tap the letters on screen, then press <strong>Check word</strong> (or the Enter key).</li>
+      <li>Type with your keyboard or tap the letters on screen, then press <strong>Check word</strong> (or the Enter key). On a phone or tablet, tap the letter boxes to bring up your own keyboard.</li>
       <li>Stuck? Press <strong>Hint</strong> and I'll tell you a letter from the word.</li>
       <li>After each guess, the tiles change colour:
         <ul>

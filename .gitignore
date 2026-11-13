@@ -3,4 +3,4 @@ rasa/models/
 rasa/.rasa/
 *.log
 __pycache__/
-README.md
+

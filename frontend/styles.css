@@ -139,7 +139,19 @@ h1, h2, h3 { font-family: var(--font-display); letter-spacing: -.01em; }
 .side-area { display: flex; flex-direction: column; gap: 18px; }
 
 /* ---------- Board ---------- */
-.board-area.card { padding: 20px 24px 26px; }
+.board-area.card { padding: 20px 24px 26px; position: relative; }
+/* Invisible field over the board; font-size 16px stops iOS zooming in when it's focused. */
+.phone-input {
+  position: absolute; left: 50%; top: 50%; width: 1px; height: 1px;
+  opacity: 0; border: 0; padding: 0; font-size: 16px;
+  caret-color: transparent; pointer-events: none;
+}
+.board-area.typing .row.current { outline-color: var(--forest); outline-style: solid; }
+.tap-tip { display: none; margin: 14px 0 0; text-align: center; color: var(--forest); font-size: 1rem; }
+@media (hover: none) and (pointer: coarse) {
+  .tap-tip { display: block; }
+  .board { cursor: text; }
+}
 .guess-counter {
   display: block; width: fit-content; margin: 0 auto 16px;
   padding: 6px 18px; border-radius: 999px;

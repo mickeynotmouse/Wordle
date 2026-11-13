@@ -15,6 +15,9 @@ but you need an internet connection.
 **Which browser:** Chrome, Edge or Safari work best. Firefox can show and read out the game,
 but it can't hear you speak, so if you use Firefox you would only be able to use the on-screen keyboard.
 
+**Typing on a phone or tablet:** tap the letter boxes and your device's usual keyboard pops
+up. Press its Go/Enter key to check your word. You can also use the big letter keys on screen.
+
 ### Microphone and sound
 
 - **Allowing the microphone:** the first time you tap the microphone button, your browser
